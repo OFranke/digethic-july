@@ -27,3 +27,12 @@
 
 ## execute python scripts
 command: `python <scriptname>.py`, example: `python myfile.py`
+
+## add dependencies
+- command: `pip install pandas`
+
+## save dependencies to file
+- command: `pip freeze > requirements.txt`
+
+## install dependencies from file
+- command: `pip install -r requirements.txt`
