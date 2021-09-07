@@ -60,6 +60,3 @@ def predict():
         }
     
     return Response('Please provide all neccessary parameters to get a prediction: zylinder, ps, gewicht, beschleunigung, baujahr', mimetype='application/json')
-
-if __name__ == "__main__":
-  app.run()
