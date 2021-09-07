@@ -1,41 +1,29 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import confusion_matrix  
+import numpy as np
+from sklearn.tree import DecisionTreeRegressor 
 import pickle
 
-#List with attribute names (it is optional to do this but it gives a better understanding of the data for a human reader)
-attribute_names = ['variance_wavelet_transformed_image', 'skewness_wavelet_transformed_image', 'curtosis_wavelet_transformed_image', 'entropy_image', 'class']
-
 #Read csv-file
-data = pd.read_csv('data/data_banknote_authentication.csv', names=attribute_names)
+data = pd.read_csv('data/auto-mpg.csv', sep=";")
 
 #Shuffle data
 data = data.sample(frac=1)
 
-#Get the absolute number of how many instances in our data belong to class zero
-count_real = len(data.loc[data['class']==0])
-
-#Get the absolute number of how many instances in our data belong to class one
-count_fake = len(data.loc[data['class']==1])
-
-#Get the relative number of how many instances in our data belong to class zero
-percentage_real = count_real/(count_fake+count_real)
-
-#Get the relative number of how many instances in our data belong to class one
-percentage_fake = count_fake/(count_real+count_fake)
-
 #'class'-column
-y_variable = data['class']
+y_variable = data['mpg']
 
 #all columns that are not the 'class'-column -> all columns that contain the attributes
-x_variables = data.loc[:, data.columns != 'class']
+x_variables = data.loc[:, data.columns != 'mpg']
+
 
 x_train, x_test, y_train, y_test = train_test_split(x_variables, y_variable, test_size=0.2)
 
-classifier = DecisionTreeClassifier() 
+regressor = DecisionTreeRegressor() 
 
-classifier = classifier.fit(x_train, y_train) 
+regressor = regressor.fit(x_train, y_train) 
+
+y_pred = regressor.predict(x_test) 
 
 file_to_write = open("models/baummethoden.pickle", "wb")
-pickle.dump(classifier, file_to_write)
+pickle.dump(regressor, file_to_write)
