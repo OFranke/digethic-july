@@ -7,7 +7,6 @@ trained_model = pickle.load(file_to_open)
 file_to_open.close()
 
 # load data that we want predictions for
-test_attribute_names = ['variance_wavelet_transformed_image', 'skewness_wavelet_transformed_image', 'curtosis_wavelet_transformed_image', 'entropy_image']
-prediction_data = pd.read_csv('data/prediction_input.csv', names=test_attribute_names)
+prediction_data = pd.read_csv('data/prediction_input_mpg.csv', sep=";")
 
 print(trained_model.predict(prediction_data))
